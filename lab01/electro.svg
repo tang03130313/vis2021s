@@ -72,6 +72,14 @@
   <path d="M450 360 L460 345" stroke-width="10" stroke="#F00" fill="none" opacity="0.3"></path>
   <path d="M460 370 L470 355" stroke-width="10" stroke="#F00" fill="none" opacity="0.3"></path>
 
+  <path d="M430 310 L425 330" stroke-width="10" stroke="#F00" fill="none" opacity="0.3"></path>
+  <path d="M425 325 L440 325" stroke-width="10" stroke="#F00" fill="none" opacity="0.3"></path>
+  <path d="M440 320 L430 340" stroke-width="10" stroke="#F00" fill="none" opacity="0.3"></path>
+
+  <path d="M512 335 L485 340" stroke-width="10" stroke="#F00" fill="none" opacity="0.3"></path>
+  <path d="M490 340 L510 345" stroke-width="10" stroke="#F00" fill="none" opacity="0.3"></path>
+  <path d="M510 345 L485 354" stroke-width="10" stroke="#F00" fill="none" opacity="0.3"></path>
+
   <!--<text x="254" y="250" font-size="16" text-anchor="middle" fill="red">(256, 256)</text>-->
 </svg>
     
