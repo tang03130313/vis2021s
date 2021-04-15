@@ -103,6 +103,13 @@
                 var treemapContainer = document.getElementById('treemap')
                 var objectKeys = document.getElementById("ObjectKeys")
 
+                dataLoader('input.csv', function(){
+                	dataClassifier(objectKeys.value, function(data, layers){
+                		node = getNode(data, layers, treemapContainer)
+                		treemapContainer.append(node)
+                	})
+                })
+                
                 document.getElementById("ObjectKeys").addEventListener('change', function(evt){
 					if(evt.target.value == 'selectValue' ){
 						return;
@@ -120,12 +127,7 @@
                     })
 				})
 
-                dataLoader('input.csv', function(){
-                	dataClassifier(objectKeys.value, function(data, layers){
-                		node = getNode(data, layers, treemapContainer)
-                		treemapContainer.append(node)
-                	})
-                })
+                
 
 				/*document.getElementById('dropfile').addEventListener('dragover',function(evt){
 					evt.preventDefault()
