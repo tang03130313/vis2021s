@@ -50,7 +50,7 @@
       // Transpose the data into layers
       d3.csv("data.csv", function (data) {
         var dataset = d3.layout.stack()(
-          ["中文", "英文", "法文", "德文", "日文"].map(function (
+          ["國文", "英文", "法文", "德文", "日文"].map(function (
             subject
           ) {
             return data.map(function (d, i) {
@@ -85,7 +85,7 @@
           ])
           .range([height, 0]);
 
-        var colors = ["#C2DBB8", "#8F15F0", "#E88D0F", "#1D2B87", "#F54B4D"];
+        var colors = ["#b33040", "#d25c4d", "#f2b447", "#d9d574", "#A6A600"];
 
         // Define and draw axes
         var yAxis = d3.svg
@@ -185,7 +185,7 @@
           .text(function (d, i) {
             switch (i) {
               case 0:
-                return "中文";
+                return "國文";
               case 1:
                 return "英文";
               case 2:
