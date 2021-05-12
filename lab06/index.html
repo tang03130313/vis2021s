@@ -32,7 +32,7 @@
     <script type="text/javascript">
       // Setup svg using Bostock's margin convention
 
-      var margin = { top: 20, right: 160, bottom: 35, left: 30 };
+      var margin = { top: 20, right: 20, bottom: 30, left: 40 };
 
       var width = 2400 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
@@ -50,15 +50,15 @@
       // Transpose the data into layers
       d3.csv("data.csv", function (data) {
         var dataset = d3.layout.stack()(
-          ["Chinese", "English", "French", "Germany", "Japanese"].map(function (
+          ["中文", "英文", "法文", "德文", "日文"].map(function (
             subject
           ) {
             return data.map(function (d, i) {
               return {
                 x: i + 1,
                 y: +d[subject],
-                z1: d["attr1"],
-                z2: d["attr2"],
+                z1: d["屬性一"],
+                z2: d["屬性二"],
               };
             });
           })
@@ -85,7 +85,7 @@
           ])
           .range([height, 0]);
 
-        var colors = ["#b33040", "#d25c4d", "#f2b447", "#d9d574", "#A6A600"];
+        var colors = ["#C2DBB8", "#8F15F0", "#E88D0F", "#1D2B87", "#F54B4D"];
 
         // Define and draw axes
         var yAxis = d3.svg
@@ -185,19 +185,18 @@
           .text(function (d, i) {
             switch (i) {
               case 0:
-                return "Japanese";
+                return "中文";
               case 1:
-                return "Germany";
+                return "英文";
               case 2:
-                return "French";
+                return "法文";
               case 3:
-                return "English";
+                return "德文";
               case 4:
-                return "Chinese";
+                return "日文";
             }
           });
 
-        // Prep the tooltip bits, initial display is hidden
         var tooltip = svg
           .append("g")
           .attr("class", "tooltip")
