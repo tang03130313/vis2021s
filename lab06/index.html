@@ -34,8 +34,8 @@
 
       var margin = { top: 20, right: 160, bottom: 35, left: 30 };
 
-      var width = window.innerWidth * 2 / 3,
-        height = indow.innerHeight * 2 / 3;
+      var width = 2400 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
 
       var svg = d3
         .select("body")
