@@ -84,7 +84,11 @@
                 .attr("x", function(d) {
                     return x(d.GB) + (x.bandwidth()) / 2 - fontSize / 2;
                 })
-                .attr("y", height)
+                .attr("y", function(d) {
+                    return height - fontSize / 2 - ((height / (d3.max(data, function(d) {
+                        return d.frequency;
+                    }))) * d.frequency)
+                })
                 .attr("font-family", "sans-serif")
                 .attr("font-size", 0 + "px");
 
