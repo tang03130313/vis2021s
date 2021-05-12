@@ -1,34 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-  <head>
+
+<head>
     <meta charset="utf-8">
-    <title>D3 Page Template</title>
-    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script> 
+    <title>Lab</title>
+    <script src="https://d3js.org/d3.v6.min.js" charset="utf-8"></script>
+    <!-- v6.5.0 -->
     <style type="text/css">
-    	
-    	div.bar {
-    		border: 1px black solid;
-    		padding: 10px;
-    		/*margin: 5px 10px 5px 10px;*/
-    		display: inline-block;
-    		width: 10px;
-    		height: 75px;
-    		background-color: pink;
-            vertical-align: bottom;
-    	}
-
-    	body {
-    		border: 1px purple solid;
-    		padding: 20px;
-    	}
-
+        .bar {
+            fill: lightsteelblue;
+        }
     </style>
-  </head>
+</head>
+
 <body>
     <script type="text/javascript">
-      // Your beautiful D3 code will go here
-
-      var margin = {
+        var margin = {
                 top: 20,
                 right: 20,
                 bottom: 30,
@@ -97,11 +84,7 @@
                 .attr("x", function(d) {
                     return x(d.GB) + (x.bandwidth()) / 2 - fontSize / 2;
                 })
-                .attr("y", function(d) {
-                    return height - fontSize / 2 - ((height / (d3.max(data, function(d) {
-                        return d.frequency;
-                    }))) * d.frequency)
-                })
+                .attr("y", height)
                 .attr("font-family", "sans-serif")
                 .attr("font-size", 0 + "px");
 
@@ -144,7 +127,7 @@
 
             console.log(data);
         });
-
     </script>
+</body>
+
 </html>
-  
