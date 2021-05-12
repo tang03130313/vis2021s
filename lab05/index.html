@@ -8,7 +8,7 @@
     <!-- v6.5.0 -->
     <style type="text/css">
         .bar {
-            fill: lightsteelblue;
+            fill: green;
         }
     </style>
 </head>
@@ -28,13 +28,14 @@
         var svg = d3.select("body").append("svg")
             .attr("width", width + margin.right + margin.left)
             .attr("height", height + margin.top + margin.bottom)
-            .append("g") 
+            .append("g") // used for x, y lengend
             .attr("transform",
                 "translate(" + margin.left + "," + margin.top + ")");
 
         var rowConverter = function(d) {
             return {
                 GB: parseInt(d.組界),
+                /*GB =  Group Boundary*/
                 frequency: parseInt(d.頻率)
             };
         }
@@ -43,12 +44,14 @@
             data.forEach(function(d) {
                 d.GB = +d.GB;
             });
+            // set the ranges
             var x = d3.scaleBand()
                 .range([0, width])
                 .padding(0.2);
             var y = d3.scaleLinear()
                 .range([height, 0]);
 
+            // Scale the range of the data in the domains
             x.domain(data.map(function(d) {
                 return d.GB;
             }));
@@ -97,10 +100,12 @@
                 .attr("transform", "translate(0," + height + ")")
                 .call(d3.axisBottom(x));
 
+            // add the y Axis
             svg.append("g")
                 .attr("id", "yaxis")
                 .call(d3.axisLeft(y));
 
+            // Animation
             svg.selectAll("#amt")
                 .transition()
                 .duration(800)
