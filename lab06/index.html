@@ -32,10 +32,10 @@
     <script type="text/javascript">
       // Setup svg using Bostock's margin convention
 
-      var margin = { top: 20, right: 20, bottom: 30, left: 40 };
+      var margin = { top: 20, right: 60, bottom: 35, left: 30 };
 
-      var width = window.innerWidth * 2 / 3,
-        height = window.innerWidth * 2 / 3;
+      var width = 2000 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom;
 
       var svg = d3
         .select("body")
