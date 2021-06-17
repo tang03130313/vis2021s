@@ -60,7 +60,6 @@
     <div>
         <div style="width:250px; display:inline-block;background-color:transparent;border-color:transparent;" id="firstWord"></div>
         <div style="width:250px; display:inline-block;background-color:transparent;border-color:transparent;" id="secondWord"></div>
-        <div style="width:250px; display:inline-block;background-color:transparent;border-color:transparent;" id="thirdWord"></div>
     </div>
     <div>
         Drag and Drop 展示區 (接收任何SVG)
@@ -71,9 +70,8 @@
         
         
         setInterval(window.onload = () => {
-            loadWordFromPath('./Hsu.svg', '#firstWord', 0);
-            loadWordFromPath('./Bang.svg', '#secondWord', 0);
-            loadWordFromPath('./Yi.svg', '#thirdWord', 0);
+            loadWordFromPath('./Tang.svg', '#firstWord', 0);
+            loadWordFromPath('./Yueh.svg', '#secondWord', 0);
 
             document.getElementById('dropfile').addEventListener('dragover', (evt) => {
                 evt.preventDefault()
