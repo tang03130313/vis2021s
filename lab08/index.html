@@ -52,7 +52,7 @@
   		</video>
     </div> 
 
-    <div>
+    <div id = "display-area">
       展示區 (姓名)
       <hr>
       <img width="256" src="./Tang.svg">
@@ -69,8 +69,8 @@
     <script type="text/javascript">
       d3.xml("Tang.svg")
         .then(data => {
-          d3.select("#pen-display-area").node().append(data.documentElement)
-          d3.select("#pen-display-area")
+          d3.select("#display-area").node().append(data.documentElement)
+          d3.select("#display-area")
             .select("svg")
             .attr("width", 256)
             .attr("id", "tsai")
@@ -78,8 +78,8 @@
 
       d3.xml("Yueh.svg")
         .then(data => {
-          d3.select("#pen-display-area").node().append(data.documentElement)
-          d3.select("#pen-display-area")
+          d3.select("#display-area").node().append(data.documentElement)
+          d3.select("#display-area")
             .selectAll("svg")
             .attr("width", 256)
             .attr("id", "yi")
