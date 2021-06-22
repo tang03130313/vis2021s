@@ -179,8 +179,8 @@
 				  console.log(myarray);
 
 				  // 完成歌詞
-				  var w = 480; //960
-				  var h = 1080; //540
+				  var w = 960;
+				  var h = 540;
 
 				  var svg = d3.select('body')
 				    .append('svg')
@@ -208,6 +208,7 @@
 			       .attr('x', w / 2)
 			       .attr('y', h - 50)
 			       .attr("text-anchor", "middle")
+             .attr("font-size",14)
 			       //.style('display', 'none')
 			       .attr('opacity', 0)
 			       .transition()
