@@ -1,89 +1,185 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
+
 <head>
-    <meta charset="utf-8">
-    <title>Lab 8</title>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@900&display=swap');
+  <meta charset="utf-8">
+  <title>Lab 8</title>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@900&display=swap');
 
-      h1, div {
-        background-color: rgba(255, 255, 0, 0.1);
-        font-family: 'Noto Serif JP', serif;
-        font-size: 24pt;
-        border: solid 1px black;
-        width: 90%;
-        margin: 5px auto;
-        padding: 10px;
+    @keyframes letterDraw {
+      1% {
+        opacity: 1;
       }
 
-      div {
-        font-size: 12pt;
+      to {
+        stroke-dashoffset: 0;
+        opacity: 1;
       }
-      
-      body {
-          background-color: rgba(255, 128, 255, 0.1);
-      }
+    }
 
-      video:hover {
-          box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-      }
+    h1,
+    div {
+      background-color: rgba(255, 255, 0, 0.1);
+      font-family: 'Noto Serif JP', serif;
+      font-size: 24pt;
+      border: solid 1px black;
+      width: 90%;
+      margin: 5px auto;
+      padding: 10px;
+    }
+
+    div {
+      font-size: 12pt;
+    }
+
+    body {
+      background-color: rgba(255, 128, 255, 0.1);
+    }
   </style>
-    <script src="https://d3js.org/d3.v6.min.js" charset="utf-8"></script> <!-- v6.5.0 -->
+  <script src="https://d3js.org/d3.v6.min.js" charset="utf-8"></script> <!-- v6.5.0 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
+
 <body>
-    <h1>
-        lab08 漢字書寫 (鉛筆字) (毛筆字也OK!) Path Animation
-    </h1>
-    <div>
-      限定使用 D3.js，參考以下影片。
-    	<ul>
-    		<li><a href="https://bl.ocks.org/basilesimon/f164aec5758d16d51d248e41af5428e4">Animate path in D3</a></li>
-    		<li><a href="https://codepen.io/MyXoToD/post/howto-self-drawing-svg-animation">"Self-Drawing" SVG</a></li>
-    		<li><a href="https://stackoverflow.com/questions/15275362/how-to-transition-a-path-in-d3-js">How to transition a path in d3.js</a></li>
-        <li><a href="https://css-tricks.com/svg-line-animation-works/">How SVG Line Animation Works</a></li>
-        <li><a href="http://blog.roachking.net/blog/2014/10/31/osolve-team-drawing-animation/">使用 SVG 將圖片做成動畫</a></li>
-        <li><a href="https://www.hesyitsai.com/">何一非</a></li>
-    	</ul>
-    </div>
-
-    <div>
-  		<video width="400" controls loop autoplay>
-  		  <source src="3.mp4" type="video/mp4">
-  		</video>
-    </div> 
-
-    <div id = "display-area">
-      展示區 (姓名)
-      <hr>
-      <img width="256" src="./Tang.svg">
-      <img width="256" src="./Yueh.svg">
-      <svg width="500" height="120">
-          <path id="path1" />
-      </svg>
+  <h1>
+    lab08 漢字書寫 (鉛筆字) (毛筆字也OK!) Path Animation
+  </h1>
+  <div>
+    限定使用 D3.js，參考以下影片。
+    <ul>
+      <li><a href="https://bl.ocks.org/basilesimon/f164aec5758d16d51d248e41af5428e4">Animate path in D3</a></li>
+      <li><a href="https://codepen.io/MyXoToD/post/howto-self-drawing-svg-animation">"Self-Drawing" SVG</a></li>
+      <li><a href="https://stackoverflow.com/questions/15275362/how-to-transition-a-path-in-d3-js">How to transition a
+          path in d3.js</a></li>
+      <li><a href="https://css-tricks.com/svg-line-animation-works/">How SVG Line Animation Works</a></li>
+      <li><a href="http://blog.roachking.net/blog/2014/10/31/osolve-team-drawing-animation/">使用 SVG 將圖片做成動畫</a></li>
+      <li><a href="https://www.hesyifei.com/">何一非</a></li>
+    </ul>
   </div>
 
-    <div>
-      Drag and Drop 展示區 (接收任何SVG)
-    </div>
+  <div id="demo">
+    展示區 漢字書寫
+    <hr>
 
-    <script type="text/javascript">
-      d3.xml("Tang.svg")
-        .then(data => {
-          d3.select("#display-area").node().append(data.documentElement)
-          d3.select("#display-area")
-            .select("svg")
-            .attr("width", 256)
-            .attr("id", "tang")
-        });
+    <svg id="first" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+      viewBox="0 0 258 258" width="256">
+      <g id="ypath">
+        <path d="M113 -4q28 6 27 16q0 4 -4 4q-5 -6 -40 7q-5 1 -1 -2q29 -19 17 -22q-1 -1 -1 -2q1 -2 2 -1z" id="path1642" />
+        <path
+          d="M120 40q-14 3 -41 10q-8 5 -24 -2q-2 -2 1 -1q12 -1 29 -5q55 -11 70 -16q8 -2 9 -7q3 -5 8 -3q3 1 7 3q6 1 10 3q0 3 -3 4q-12 -1 -34 7z"
+          id="path1644" />
+        <path d="M80 118q-17 81 -40 121q-1 2 -2 0q0 -1 1 -3q24 -48 35 -116zM75 114q0 -3 1 -8q1 -7 2 -12q2 -5 2 -12q1 -13 9 -19zM120 40zM122 48zM120 49q-18 10 -30 21q-4 2 -2 13q1 5 -1 5t-2 4l-3 12q-1 5 -2 8z"
+          id="path1646" />
+        <path d="M136 68q3 -1 8 -2q16 -4 24 -5q7 -3 9 -1q4 3 9 7q6 5 9 8zM127 75q-6 2 -14 4q-4 2 -6 2q-3 3 -8 1q-2 -1 1 -2q4 -2 13 -5q10 -4 13 -5zM178 72q1 -7 -5 -8q-8 -1 -38 9z"
+          id="path1648" />
+        <path d="M177 60q4 3 9 7q6 5 9 8q1 2 -1 5q-10 -1 -12 5q-4 4 -6 7q1 0 3 -1zM173 97q-17 19 -29 25q10 -1 17 -5zM162 98zM165 93q9 -11 13 -21q1 -7 -5 -8z" id="path1650" />
+        <path d="M176 92q1 0 3 -1q20 -3 23 -3q4 -5 4 -4q1 0 3 -1h3q8 -3 20 2q2 1 0 3h-4q-4 1 -6 1q-8 0 -17 4q-3 1 -9 2q-9 3 -14 4q-4 1 0 -1l6 -3q1 -1 2 -1q-2 0 -6 1q-6 1 -11 2zM161 117zM129 105l-24 6t-25 7zM74 120q-18 5 -23 3q-1 -1 -1 -2l1 -1q5 -1 13 -3q6 -2 11 -3z M80 112q9 -2 25 -6q18 -4 24 -6zM162 98q-15 3 -26 6zM136 98q5 -1 12 -2q12 -2 17 -3z"
+          id="path1652" />
+        <path
+          d="M144 122q10 -1 17 -5q2 -4 6 -2q21 0 22 7q0 1 -3 2q-1 0 -5 -1q-3 -1 -5 -1q-4 -1 -8 0q-2 1 -4 1q-15 3 -29 7zM129 134v-3q-31 10 -39 11q-1 0 -1 -1t1 -2q4 -1 11 -4q14 -5 28 -9zM136 122z"
+          id="path1654" />
+        <path d="M121 41q3 -3 -1 -1zM122 48q6 4 14 7q3 0 1 7q-1 1 -1 6zM135 130q-2 16 -6 13h-3q-1 0 0 -2q2 -2 3 -7v-3zM129 126v-21zM129 100q-2 -16 -2 -25zM126 70q0 -19 -6 -21zM136 104v18zM135 73q0 13 1 25z" id="path1767" />
+        <path
+          d="M133 204q-1 1 -1 2l1 1q4 2 5 3q0 2 -4 5q-4 -1 -24 -12q-4 -3 -2 -5q5 -4 -4 -19q-2 -4 0 -2q10 11 12 17q5 10 14 7zM120 177q-4 0 0 -2z"
+          id="path1656" />
+        <path d="M153 194q16 -15 17 -25q0 -5 -4 -3q-11 1 -24 5q2 0 -2 1q-2 1 -5 2q-6 2 -15 3q-4 0 0 -2q10 -6 45 -13q3 -5 6 -3h1q16 5 19 11q4 3 -7 5q-4 1 -6 3q-3 6 -17 18z" id="path1658" />
+        <path
+          d="M161 196q16 1 17 4q0 4 -4 6q-37 -6 -41 -2zM130 201q18 -2 23 -7z"
+          id="path1660" />
+        
+      </g>
 
-      d3.xml("Yueh.svg")
-        .then(data => {
-          d3.select("#display-area").node().append(data.documentElement)
-          d3.select("#display-area")
-            .selectAll("svg")
-            .attr("width", 256)
-            .attr("id", "yueh")
-        });
+      <clippath id="yclip">
+        <path fill="none" id="path2" d="M113 -4q28 6 27 16q0 4 -4 4q-5 -6 -40 7q-5 1 -1 -2q29 -19 17 -22q-1 -1 -1 -2q1 -2 2 -1zM164 19q3 -5 8 -3q3 1 7 3q6 1 10 3q0 3 -3 4q-12 -1 -34 7q-20 7 -30 15q6 4 14 7q3 0 1 7q-1 1 -1 6q3 -1 8 -2q16 -4 24 -5q7 -3 9 -1q4 3 9 7q6 5 9 8q1 2 -1 5
+        q-10 -1 -12 5q-4 4 -6 7q1 0 3 -1q20 -3 23 -3q4 -5 4 -4q1 0 3 -1h3q8 -3 20 2q2 1 0 3h-4q-4 1 -6 1q-8 0 -17 4q-3 1 -9 2q-9 3 -14 4q-4 1 0 -1l6 -3q1 -1 2 -1q-2 0 -6 1q-6 1 -11 2q-17 19 -29 25q10 -1 17 -5q2 -4 6 -2q21 0 22 7q0 1 -3 2q-1 0 -5 -1q-3 -1 -5 -1
+        q-4 -1 -8 0q-2 1 -4 1q-15 3 -29 7q-2 16 -6 13h-3q-1 0 0 -2q2 -2 3 -7v-3q-31 10 -39 11q-1 0 -1 -1t1 -2q4 -1 11 -4q14 -5 28 -9v-21l-24 6t-25 7q-17 81 -40 121q-1 2 -2 0q0 -1 1 -3q24 -48 35 -116q-18 5 -23 3q-1 -1 -1 -2l1 -1q5 -1 13 -3q6 -2 11 -3q0 -3 1 -8
+        q1 -7 2 -12q2 -5 2 -12q1 -13 9 -19q9 -7 32 -22q3 -3 -1 -1q-14 3 -41 10q-8 5 -24 -2q-2 -2 1 -1q12 -1 29 -5q55 -11 70 -16q8 -2 9 -7zM120 49q-18 10 -30 21q-4 2 -2 13q1 5 -1 5t-2 4l-3 12q-1 5 -2 8q9 -2 25 -6q18 -4 24 -6q-2 -16 -2 -25q-6 2 -14 4q-4 2 -6 2
+        q-3 3 -8 1q-2 -1 1 -2q4 -2 13 -5q10 -4 13 -5q0 -19 -6 -21zM162 98q-15 3 -26 6v18q10 -3 26 -24zM135 73q0 13 1 25q5 -1 12 -2q12 -2 17 -3q9 -11 13 -21q1 -7 -5 -8q-8 -1 -38 9zM165 162q3 -5 6 -3h1q16 5 19 11q4 3 -7 5q-4 1 -6 3q-3 6 -17 18q16 1 17 4q0 4 -4 6
+        q-37 -6 -41 -2q-1 1 -1 2l1 1q4 2 5 3q0 2 -4 5q-4 -1 -24 -12q-4 -3 -2 -5q5 -4 -4 -19q-2 -4 0 -2q10 11 12 17q5 10 14 7q18 -2 23 -7q16 -15 17 -25q0 -5 -4 -3q-11 1 -24 5q2 0 -2 1q-2 1 -5 2q-6 2 -15 3q-4 0 0 -2q10 -6 45 -13z" />
+      </clippath>
 
-    </script>
-  </html>
+    </svg>
+
+
+    <svg id="second" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+      viewBox="0 0 258 258" width="256">
+      <g id="xpath">
+        <path
+     d="M96 61q-1 -5 -5 -3q-6 0 -12 2q-4 2 0 -6q1 -3 2 -3q0 -1 2 1h1q4 1 6 0q24 -13 50 -36q6 -4 0 -9q-3 -3 2 -2q6 3 15 14q2 2 1 4q-2 3 -4 2q-7 -3 -15 2q-17 11 -41 25q5 1 6 1q4 2 1 5z"
+     id="path993" />
+  <path
+     d="M114 135zM113 133q-2 -1 -5 -3q-7 -4 -10 -6q-3 -4 2 -9q3 -3 2 -14q-3 -26 -6 -40zM98 52q5 1 6 1q4 2 1 5q-3 2 -2 9q0 6 2 18zM105 86q4 39 10 40z"
+     id="path995" />
+  <path
+     d="M105 85q17 -3 33 -11q11 -6 24 -8q9 -2 12 -9q1 -5 6 -2q9 2 16 7q2 1 2 3q-1 2 -4 2q-12 -2 -34 8q-4 1 -5 1q0 -1 3 -4q4 -4 -1 -1q-24 9 -37 17q-4 3 -15 -2zM143 90q-2 -1 -2 -2q1 -2 2 -1q1 0 3 1z"
+     id="path997" />
+  <path
+      d="M117 132q1 0 3 -1q2 0 3 -1q12 -6 21 -26q5 -9 -1 -14q-2 -1 -2 -2q1 -2 2 -1q1 0 3 1q8 3 12 6q5 2 0 6q-2 2 -5 6q-1 2 -2 3q-5 8 -14 18zM134 131q-6 3 -10 4zM173 217zM120 136z"
+      id="path999" />
+  <path
+     d="M117 132q1 0 3 -1q2 0 3 -1zM137 127q25 -5 67 -7q-1 -5 5 -8q5 -4 9 1t13 8q1 1 3 2q9 3 13 8q2 3 -1 6q-2 2 -5 0q-21 -15 -39 -14q-24 0 -68 8q-6 3 -10 4zM120 136q-3 0 -6 -1q-10 2 -29 6q-39 9 -54 13q-11 4 -21 0q-4 -1 0 -2q22 -4 61 -11q28 -5 42 -8z"
+     id="path1001" />
+  <path
+     d="M135 148q0 7 -1 23v11zM125 184q2 -21 1 -35q1 -9 -6 -13z"
+     id="path1003" />
+  <path
+     d="M185 185q-53 -2 -113 23q-4 2 -6 0q-1 -3 0 -9q1 -3 3 -2q8 2 8 -4q1 -10 -3 -24q0 -2 1 -2q0 -1 2 1q10 9 10 26q20 -6 38 -10zM134 182q21 -2 51 -2v-2z"
+     id="path1005" />
+  <path
+     d="M185 180v-2q2 -11 -5 -20q-2 -2 -1 -3q1 0 4 1q7 4 14 11q1 2 1 4q-7 31 -22 44q-2 2 -3 2q-1 -1 0 -3q8 -8 12 -29z"
+     id="path1007" />
+
+      </g>
+      <clippath id="xclip">
+        <path
+     d="M180 158q-2 -2 -1 -3q1 0 4 1q7 4 14 11q1 2 1 4q-7 31 -22 44q-2 2 -3 2q-1 -1 0 -3q8 -8 12 -29q-53 -2 -113 23q-4 2 -6 0q-1 -3 0 -9q1 -3 3 -2q8 2 8 -4q1 -10 -3 -24q0 -2 1 -2q0 -1 2 1q10 9 10 26q20 -6 38 -10q2 -21 1 -35q1 -9 -6 -13q-3 0 -6 -1q-10 2 -29 6
+     q-39 9 -54 13q-11 4 -21 0q-4 -1 0 -2q22 -4 61 -11q28 -5 42 -8q-2 -1 -5 -3q-7 -4 -10 -6q-3 -4 2 -9q3 -3 2 -14q-3 -26 -6 -40q-1 -5 -5 -3q-6 0 -12 2q-4 2 0 -6q1 -3 2 -3q0 -1 2 1h1q4 1 6 0q24 -13 50 -36q6 -4 0 -9q-3 -3 2 -2q6 3 15 14q2 2 1 4q-2 3 -4 2
+     q-7 -3 -15 2q-17 11 -41 25q5 1 6 1q4 2 1 5q-3 2 -2 9q0 6 2 18q17 -3 33 -11q11 -6 24 -8q9 -2 12 -9q1 -5 6 -2q9 2 16 7q2 1 2 3q-1 2 -4 2q-12 -2 -34 8q-4 1 -5 1q0 -1 3 -4q4 -4 -1 -1q-24 9 -37 17q-4 3 -15 -2q4 39 10 40q2 0 2 6q1 0 3 -1q2 0 3 -1q12 -6 21 -26
+     q5 -9 -1 -14q-2 -1 -2 -2q1 -2 2 -1q1 0 3 1q8 3 12 6q5 2 0 6q-2 2 -5 6q-1 2 -2 3q-5 8 -14 18q25 -5 67 -7q-1 -5 5 -8q5 -4 9 1t13 8q1 1 3 2q9 3 13 8q2 3 -1 6q-2 2 -5 0q-21 -15 -39 -14q-24 0 -68 8q-6 3 -10 4q13 5 11 13q0 7 -1 23v11q21 -2 51 -2v-2
+     q2 -11 -5 -20z"
+     id="path2"
+     />
+      </clippath>
+    </svg>
+  </div>
+
+  <div>
+    展示區 (姓名)
+    <hr>
+    <img id="Tang" width="256" src="./Tang.svg">
+    <img id="Yueh" width="256" src="./Yueh.svg">
+  </div>
+
+  <!--<div>
+    Drag and Drop 展示區 (接收任何SVG)
+  </div>-->
+
+  <script type="text/javascript">
+    // Your beautiful D3 code will go here
+    setPathCss(10, "#408080", "#ypath", "#yclip");
+    setPathCss(10, "#408080", "#xpath", "#xclip");
+
+    function setPathCss(speed, color, id, cid) {
+      var obj = $(id).find('path');
+      var total = 0;
+      $(id).css('fill', 'none');
+      $(id).css('stroke-width', '20');
+      $(id).css('stroke', color);
+      $(id).css('clip-path', 'url(' + cid + ')');
+      for (let i = 0; i < obj.length; i++) {
+        $('#' + obj[i].id).css('animation', '');
+      }
+      for (let i = 0; i < obj.length; i++) {
+        var length = obj[i].getTotalLength();
+        $('#' + obj[i].id).css("opacity", 0);
+        $('#' + obj[i].id).css("stroke-dasharray", length);
+        $('#' + obj[i].id).css("stroke-dashoffset", length);
+        $('#' + obj[i].id).css("animation", "letterDraw linear forwards " + length * speed / 1000 + 's ' + total * speed / 1000 + 's');
+        total += length;
+      }
+    }
+  </script>
+
+</html>
