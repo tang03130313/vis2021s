@@ -13,8 +13,7 @@
         }
         #training-section, #testing-section {
             height: 100%;
-            background-color: rgb(150, 204, 235);
-            opacity: 0.9;
+            background-color: rgb(150, 204, 235, 0.9);
 			overflow: hidden;
             font-size: 18px;
         }
@@ -22,8 +21,7 @@
             height: 100%;
             position: fixed;
             max-width: 100%;
-            background-color: rgb(219, 233, 233);
-            opacity: 0.9;
+            background-color: rgb(219, 233, 233, 0.9);
         }
 
         .padding {
@@ -87,7 +85,7 @@
 					測試資料集的部分
 				</h1>
                 <p>
-                    在第一次測試時我們有保留Genres欄位，訓練的準確度有到90%，但在之後發現雖然Genres分布很正常，可是FAMILY和GAME的Genres幾乎沒有重複，因此把Genres欄位刪除，準確率也降到83%
+                    在第一次測試時我們有保留Genres欄位，訓練的準確度有到90%，但在之後發現雖然Genres分布很正常，可是FAMILY和GAME的Genres幾乎沒有重複，因此把Genres欄位刪除。
                 </p>
                 <p id = "testing-pic-section" align="center">
 
